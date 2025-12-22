@@ -1,0 +1,34 @@
+/**
+ * FixMyCondo - Entry Point
+ * Redirects to appropriate screen based on auth state
+ */
+import { Redirect } from 'expo-router';
+import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { useAuth } from '../contexts/AuthContext';
+
+export default function Index() {
+    const { isAuthenticated, isLoading } = useAuth();
+
+    if (isLoading) {
+        return (
+            <View style={styles.container}>
+                <ActivityIndicator size="large" color="#2D6CDF" />
+            </View>
+        );
+    }
+
+    if (isAuthenticated) {
+        return <Redirect href="/(tabs)/home" />;
+    }
+
+    return <Redirect href="/(auth)/login" />;
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f8f9fa',
+    },
+});

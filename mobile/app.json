@@ -1,0 +1,44 @@
+{
+    "expo": {
+        "name": "FixMyCondo",
+        "slug": "fixmycondo",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "scheme": "fixmycondo",
+        "userInterfaceStyle": "automatic",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#2D6CDF"
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.fixmycondo.app"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#2D6CDF"
+            },
+            "package": "com.fixmycondo.app"
+        },
+        "web": {
+            "bundler": "metro",
+            "output": "single",
+            "favicon": "./assets/favicon.png",
+            "name": "FixMyCondo",
+            "shortName": "FixMyCondo",
+            "description": "Tenant Complaint & Maintenance Management"
+        },
+        "plugins": [
+            "expo-router"
+        ],
+        "experiments": {
+            "typedRoutes": true
+        }
+    }
+}
