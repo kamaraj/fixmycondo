@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     
     # Database
     DATABASE_URL: str = "sqlite+aiosqlite:///" + (
-        "/tmp/fixmycondo.db" if os.environ.get("VERCEL") else "./fixmycondo.db"
+        "/tmp/fixmycondo.db" if os.environ.get("VERCEL") or os.environ.get("VERCEL_URL") else "./fixmycondo.db"
     )
     
     # Redis
@@ -34,7 +34,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     
     # File Upload
-    UPLOAD_DIR: str = "/tmp/uploads" if os.environ.get("VERCEL") else "uploads"
+    UPLOAD_DIR: str = "/tmp/uploads" if os.environ.get("VERCEL") or os.environ.get("VERCEL_URL") else "uploads"
     MAX_UPLOAD_SIZE: int = 10 * 1024 * 1024  # 10MB
     ALLOWED_IMAGE_TYPES: List[str] = ["image/jpeg", "image/png", "image/gif"]
     ALLOWED_VIDEO_TYPES: List[str] = ["video/mp4", "video/quicktime"]
