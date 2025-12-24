@@ -43,6 +43,38 @@ async def lifespan(app: FastAPI):
         os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
         logger.info(f"Using fallback upload directory: {settings.UPLOAD_DIR}")
     
+    # Minimal seed for testing on Vercel
+    from .models import User, UserRole
+    from .services import hash_password
+    from sqlalchemy import select
+    from .database import async_session
+    
+    async with async_session() as db:
+        result = await db.execute(select(User).limit(1))
+        if not result.scalar_one_or_none():
+            logger.info("Database empty, seeding test users...")
+            # Admin user
+            admin = User(
+                email="admin@fixmycondo.com",
+                hashed_password=hash_password("Admin@123"),
+                full_name="Super Admin",
+                role=UserRole.ADMIN,
+                is_active=True,
+                is_verified=True
+            )
+            # Test Resident
+            resident = User(
+                email="resident@example.com",
+                hashed_password=hash_password("User@123"),
+                full_name="Test Resident",
+                role=UserRole.RESIDENT,
+                is_active=True,
+                is_verified=True
+            )
+            db.add_all([admin, resident])
+            await db.commit()
+            logger.info("Test users created: admin@fixmycondo.com and resident@example.com")
+            
     yield
     
     # Shutdown
