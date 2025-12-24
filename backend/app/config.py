@@ -20,9 +20,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "your-super-secret-key-change-in-production"
     
     # Database
-    DATABASE_URL: str = "sqlite+aiosqlite:///" + (
-        "/tmp/fixmycondo.db" if os.name != "nt" else "./fixmycondo.db"
-    )
+    DATABASE_URL: str = "sqlite+aiosqlite:///./fixmycondo.db"
     
     # Redis
     REDIS_URL: Optional[str] = None
@@ -34,7 +32,7 @@ class Settings(BaseSettings):
     REFRESH_TOKEN_EXPIRE_DAYS: int = 7
     
     # File Upload
-    UPLOAD_DIR: str = "/tmp/uploads" if os.name != "nt" else "uploads"
+    UPLOAD_DIR: str = "uploads"
     MAX_UPLOAD_SIZE: int = 10 * 1024 * 1024  # 10MB
     ALLOWED_IMAGE_TYPES: List[str] = ["image/jpeg", "image/png", "image/gif"]
     ALLOWED_VIDEO_TYPES: List[str] = ["video/mp4", "video/quicktime"]

@@ -1,7 +1,9 @@
 {
     "version": 2,
     "env": {
-        "VERCEL": "1"
+        "VERCEL": "1",
+        "DATABASE_URL": "sqlite+aiosqlite:////tmp/fixmycondo.db",
+        "UPLOAD_DIR": "/tmp/uploads"
     },
     "builds": [
         {

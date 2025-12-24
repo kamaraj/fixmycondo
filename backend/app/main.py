@@ -33,8 +33,15 @@ async def lifespan(app: FastAPI):
     logger.info("Database tables created")
     
     # Create upload directory
-    os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
-    logger.info(f"Upload directory: {settings.UPLOAD_DIR}")
+    try:
+        os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
+        logger.info(f"Upload directory: {settings.UPLOAD_DIR}")
+    except Exception as e:
+        logger.warning(f"Failed to create upload directory {settings.UPLOAD_DIR}: {e}")
+        # Fallback to /tmp on Vercel or other read-only systems
+        settings.UPLOAD_DIR = "/tmp/uploads"
+        os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
+        logger.info(f"Using fallback upload directory: {settings.UPLOAD_DIR}")
     
     yield
     
